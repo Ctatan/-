@@ -1,13 +1,13 @@
 import numpy as np
-from keras import models
 import tensorflow as tf
 import identify_code.ideantify as idt
 
 # 加载模型
-from identify_code.netsModel import model
 
 
 # 预测
+from identify_code.reload import new_model
+
 
 def vec2text(vec):
     """
@@ -34,7 +34,7 @@ for images, labels in idt.val_ds.take(1):
         img_array = tf.expand_dims(images[i], 0)
 
         # 使用模型预测验证码
-        predictions = model.predict(img_array)
+        predictions = new_model.predict(img_array)
         idt.plt.title(vec2text(np.argmax(predictions, axis=2)[0]))
         idt.plt.axis("off")
 idt.plt.show()
