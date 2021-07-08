@@ -1,12 +1,12 @@
 import numpy as np
 import tensorflow as tf
 import identify_code.ideantify as idt
+from keras import models
+
 
 # 加载模型
 
-
-# 预测
-from identify_code.reload import new_model
+new_model = models.load_model("models/crack_captcha.h5")
 
 
 def vec2text(vec):
@@ -24,8 +24,8 @@ idt.plt.figure(figsize=(10, 8))
 
 
 for images, labels in idt.val_ds.take(1):
-    for i in range(10):
-        ax = idt.plt.subplot(5, 2, i + 1)
+    for i in range(30):
+        ax = idt.plt.subplot(6, 5, i + 1)
         # 显示图片
 
         idt.plt.imshow(images[i])
@@ -38,3 +38,4 @@ for images, labels in idt.val_ds.take(1):
         idt.plt.title(vec2text(np.argmax(predictions, axis=2)[0]))
         idt.plt.axis("off")
 idt.plt.show()
+
